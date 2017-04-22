@@ -1,0 +1,735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Columbus 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="None" href="index.html#document-index" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="columbus-worker-api">
+<h1>Columbus Worker API<a class="headerlink" href="#columbus-worker-api" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<span id="document-colorker"></span><div class="section" id="module-colorker">
+<span id="colorker-package"></span><h2>colorker package<a class="headerlink" href="#module-colorker" title="Permalink to this headline">¶</a></h2>
+<p>A library for distributed execution of workflows submitted through Columbus. The library helps connect with Google
+cloud services through the API methods provided in the service package. The library methods are intended to be used in
+the code composed for Components and Combiners of the Columbus platform. Several methods in the library have the
+parameter <cite>user_settings</cite> - these are sent to the worker by the Columbus master, so code composed inside Components
+and Combiners will have access to the user settings internally and the parameter can be ignored.</p>
+<div class="section" id="module-colorker.security">
+<span id="colorker-security"></span><h3>colorker.security<a class="headerlink" href="#module-colorker.security" title="Permalink to this headline">¶</a></h3>
+<p>Includes functionality to obtain access to appropriate Cloud services based on the given credentials of a user</p>
+<dl class="class">
+<dt id="colorker.security.CredentialManager">
+<em class="property">class </em><code class="descclassname">colorker.security.</code><code class="descname">CredentialManager</code><a class="headerlink" href="#colorker.security.CredentialManager" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="staticmethod">
+<dt id="colorker.security.CredentialManager.get_earth_engine">
+<em class="property">static </em><code class="descname">get_earth_engine</code><span class="sig-paren">(</span><em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.security.CredentialManager.get_earth_engine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains the Google Earth Engine object that can be used to do GIS computations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)">object</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Earth Engine object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-colorker.utils">
+<span id="colorker-utils"></span><h3>colorker.utils<a class="headerlink" href="#module-colorker.utils" title="Permalink to this headline">¶</a></h3>
+<p>Includes utility functions that can be used in the code composed in Components and Combiners of the Columbus platform</p>
+<dl class="function">
+<dt id="colorker.utils.caught">
+<code class="descclassname">colorker.utils.</code><code class="descname">caught</code><span class="sig-paren">(</span><em>try_function</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.caught" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries a function and checks if it throws an exception.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>try_function</strong> (<em>Callable</em>) &#8211; callable object representing the function that must be tried</li>
+<li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; arguments to pass to the callable function</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if an exception was caught, False otherwise</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.current_time_millis">
+<code class="descclassname">colorker.utils.</code><code class="descname">current_time_millis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.current_time_millis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the current time in milliseconds</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)">int</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">current time in milliseconds</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.deep_update">
+<code class="descclassname">colorker.utils.</code><code class="descname">deep_update</code><span class="sig-paren">(</span><em>source</em>, <em>overrides</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.deep_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a nested dictionary or similar mapping. Modifies <code class="docutils literal"><span class="pre">source</span></code> in place with the key-value pairs in overrides</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; a dictionary that needs to be updated</li>
+<li><strong>overrides</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; a dictionary that provides the new keys and values</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">updated source dictionary</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.dict_to_html_table">
+<code class="descclassname">colorker.utils.</code><code class="descname">dict_to_html_table</code><span class="sig-paren">(</span><em>a_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.dict_to_html_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a dictionary to a HTML table. Keys become the header of the table.
+Useful while sending email from the code</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a_dict</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; key value pairs in the form of a dictionary</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">HTML table representation corresponding to the values in the dictionary</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.dicts_to_html_table">
+<code class="descclassname">colorker.utils.</code><code class="descname">dicts_to_html_table</code><span class="sig-paren">(</span><em>a_list</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.dicts_to_html_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a list of dictionaries to a HTML table. Keys become the header of the table.
+Useful while sending email from the code</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a_list</strong> (<em>list(dict)</em>) &#8211; values in the form of list of dictionaries</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">HTML table representation corresponding to the values in the lists</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.is_number">
+<code class="descclassname">colorker.utils.</code><code class="descname">is_number</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.is_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the argument is a number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Any string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#bool" title="(in Python v2.7)">bool</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the string is a number, False otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.lists_to_html_table">
+<code class="descclassname">colorker.utils.</code><code class="descname">lists_to_html_table</code><span class="sig-paren">(</span><em>a_list</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.lists_to_html_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a list of lists to a HTML table. First list becomes the header of the table.
+Useful while sending email from the code</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a_list</strong> (<em>list(list)</em>) &#8211; values in the form of list of lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">HTML table representation corresponding to the values in the lists</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.mean">
+<code class="descclassname">colorker.utils.</code><code class="descname">mean</code><span class="sig-paren">(</span><em>prop</em>, <em>ftc</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the mean of a property in the given feature collection. NaN values are treated as zero.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>prop</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the property in the feature collection</li>
+<li><strong>ftc</strong> (<em>geojson.FeatureCollection</em>) &#8211; the feature collection containing that property</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">mean value of the property</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.utils.std">
+<code class="descclassname">colorker.utils.</code><code class="descname">std</code><span class="sig-paren">(</span><em>prop</em>, <em>ftc</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.utils.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the standard deviation of a property in the given feature collection. NaN values are treated as zero.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>prop</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the property in the feature collection</li>
+<li><strong>ftc</strong> (<em>geojson.FeatureCollection</em>) &#8211; the feature collection containing that property</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">standard deviation value of the property</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="subpackages">
+<h3>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<span id="document-colorker.service"></span><div class="section" id="module-colorker.service">
+<span id="colorker-service-package"></span><h4>colorker.service package<a class="headerlink" href="#module-colorker.service" title="Permalink to this headline">¶</a></h4>
+<p>The package provides APIs that help connect with Google cloud services. The library methods are intended to be used
+in the code composed for Components and Combiners of the Columbus platform. Several methods in the library have the
+parameter <cite>user_settings</cite> - these are sent to the worker by the Columbus master, so code composed inside Components
+and Combiners will have access to the user settings internally and the parameter can be ignored.</p>
+<div class="section" id="module-colorker.service.bigquery">
+<span id="colorker-service-bigquery"></span><h5>colorker.service.bigquery<a class="headerlink" href="#module-colorker.service.bigquery" title="Permalink to this headline">¶</a></h5>
+<p>Includes functions to integrate with Google Bigquery. The results and implementation is based on the API
+provided by the Google Bigquery API:</p>
+<p><a class="reference external" href="https://developers.google.com/resources/api-libraries/documentation/bigquery/v2/python/latest/index.html">https://developers.google.com/resources/api-libraries/documentation/bigquery/v2/python/latest/index.html</a></p>
+<dl class="function">
+<dt id="colorker.service.bigquery.get_all_tables">
+<code class="descclassname">colorker.service.bigquery.</code><code class="descname">get_all_tables</code><span class="sig-paren">(</span><em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.bigquery.get_all_tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains all the table names from all the bigquery projects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>[{project_name:dataset_name : [table_name_1, table_name_2]}]</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list(dict)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.bigquery.get_features">
+<code class="descclassname">colorker.service.bigquery.</code><code class="descname">get_features</code><span class="sig-paren">(</span><em>qualified_table_name</em>, <em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.bigquery.get_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains the columns of a bigquery table</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>qualified_table_name</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; table name, must be of the form  <cite>project_name:dataset_name.table_name</cite></li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of key value pairs where key is column name and value is column type</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)">list</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.bigquery.get_query_results">
+<code class="descclassname">colorker.service.bigquery.</code><code class="descname">get_query_results</code><span class="sig-paren">(</span><em>qualified_table_name</em>, <em>query</em>, <em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.bigquery.get_query_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains the results of a query. A call to this method will block until the results are obtained</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>qualified_table_name</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; table name, must be of the form  project-name:dataset-name.table-name</li>
+<li><strong>query</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; A SQL query that conforms to the syntax of Bigquery query</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>{fields: [{name: column_name_1, type:column_type_1}, ...],</cite>
+<cite>rows: [[{v:column_1_value}, {v:column_2_value}, ...], [{v:column_1_value}, {v:column_2_value}, ...]],</cite>
+<cite>total: total_number_of_rows,</cite>
+<cite>cached: boolean, whether the results returned were obtained from cache}</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-colorker.service.drive">
+<span id="colorker-service-drive"></span><h5>colorker.service.drive<a class="headerlink" href="#module-colorker.service.drive" title="Permalink to this headline">¶</a></h5>
+<p>Includes functions to integrate with a user&#8217;s Google drive. The results and implementation is based on the API
+provided by the Google Drive API:</p>
+<p><a class="reference external" href="https://developers.google.com/drive/v3/reference/">https://developers.google.com/drive/v3/reference/</a></p>
+<p><a class="reference external" href="https://developers.google.com/resources/api-libraries/documentation/drive/v3/python/latest/">https://developers.google.com/resources/api-libraries/documentation/drive/v3/python/latest/</a></p>
+<dl class="function">
+<dt id="colorker.service.drive.get_file_contents">
+<code class="descclassname">colorker.service.drive.</code><code class="descname">get_file_contents</code><span class="sig-paren">(</span><em>file_id</em>, <em>meta_err=False</em>, <em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.drive.get_file_contents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains the contents of a file as a list of dictionaries. File type of the requested file must be a csv or a
+Google fusion table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_id</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; the identifier of the file whose content is needed</li>
+<li><strong>meta_err</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; optional, internal use only</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of dictionaries where each dictionary is a row in the file</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)">list</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.drive.get_metadata">
+<code class="descclassname">colorker.service.drive.</code><code class="descname">get_metadata</code><span class="sig-paren">(</span><em>file_id</em>, <em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.drive.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains the metadata of a file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_id</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; the identifier of the file whose metadata is needed</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">metadata of the file including id, mimeType, size, parents, kind, fileExtension, and webContentLink</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-colorker.service.email">
+<span id="colorker-service-email"></span><h5>colorker.service.email<a class="headerlink" href="#module-colorker.service.email" title="Permalink to this headline">¶</a></h5>
+<p>Includes functions that facilitate sending an email to the requested people</p>
+<dl class="function">
+<dt id="colorker.service.email.send_mail">
+<code class="descclassname">colorker.service.email.</code><code class="descname">send_mail</code><span class="sig-paren">(</span><em>receivers</em>, <em>subject</em>, <em>message</em>, <em>html=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.email.send_mail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends an email to the recipients. Must be called from an EngineThread. This method will not raise any exception
+if it fails to send a message to the recipients.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>receivers</strong> (<em>list(str)</em>) &#8211; list of recipient email addresses</li>
+<li><strong>subject</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; subject of the email</li>
+<li><strong>message</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; plain text message</li>
+<li><strong>html</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; HTML message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-colorker.service.fusiontables">
+<span id="colorker-service-fusiontables"></span><h5>colorker.service.fusiontables<a class="headerlink" href="#module-colorker.service.fusiontables" title="Permalink to this headline">¶</a></h5>
+<p>Includes functions to integrate with Google Fusion Tables. The results and implementation is based on the API
+provided by the Google Fusion Tables API:</p>
+<p><a class="reference external" href="https://developers.google.com/resources/api-libraries/documentation/fusiontables/v2/python/latest/index.html">https://developers.google.com/resources/api-libraries/documentation/fusiontables/v2/python/latest/index.html</a></p>
+<dl class="function">
+<dt id="colorker.service.fusiontables.create_table">
+<code class="descclassname">colorker.service.fusiontables.</code><code class="descname">create_table</code><span class="sig-paren">(</span><em>name</em>, <em>description</em>, <em>columns</em>, <em>data=None</em>, <em>share_with=None</em>, <em>admin=None</em>, <em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.fusiontables.create_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a fusion table for the given data and returns the table id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Name of the fusion table to create</li>
+<li><strong>description</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Description of the table to be created</li>
+<li><strong>columns</strong> (<em>list(dict)</em>) &#8211; List of dictionaries having properties name and type</li>
+<li><strong>data</strong> (<em>list(dict)</em>) &#8211; List of dictionaries (optional)</li>
+<li><strong>share_with</strong> (<em>str or list(str)</em>) &#8211; Single email addreess string or  a List of user email addresses (gmail only)
+to share the created fusion table</li>
+<li><strong>admin</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; email address of the administrator who should have edit access to the created fusion table</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)">str</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the table id of the created fusion table</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.fusiontables.delete_table">
+<code class="descclassname">colorker.service.fusiontables.</code><code class="descname">delete_table</code><span class="sig-paren">(</span><em>table_id</em>, <em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.fusiontables.delete_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a fusion table</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table_id</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; identifier of the fusion table</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises BaseException:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Any exception resulting from this operation</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.fusiontables.read_table">
+<code class="descclassname">colorker.service.fusiontables.</code><code class="descname">read_table</code><span class="sig-paren">(</span><em>table_id</em>, <em>user_settings=None</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.fusiontables.read_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a fusion table and returns its contants as a list of dictionaries</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table_id</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; identifier of the fusion table</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises BaseException:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Any exception resulting from this operation</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-colorker.service.gee">
+<span id="colorker-service-gee"></span><h5>colorker.service.gee<a class="headerlink" href="#module-colorker.service.gee" title="Permalink to this headline">¶</a></h5>
+<p>Includes functions that integrate Google cloud storage and Google Earth Engine</p>
+<dl class="function">
+<dt id="colorker.service.gee.delete_object">
+<code class="descclassname">colorker.service.gee.</code><code class="descname">delete_object</code><span class="sig-paren">(</span><em>bucket</em>, <em>filename</em>, <em>user_settings=None</em>, <em>access='storage_rw'</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.gee.delete_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes an object from the specified bucket</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the Google cloud storage bucket</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; path of the object in the bucket</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+<li><strong>access</strong> &#8211; must be &#8216;storage&#8217;. Other values are for internal use only</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns the response obtained from the API</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.gee.download_object">
+<code class="descclassname">colorker.service.gee.</code><code class="descname">download_object</code><span class="sig-paren">(</span><em>bucket</em>, <em>filename</em>, <em>out_file</em>, <em>user_settings=None</em>, <em>access='storage'</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.gee.download_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads an object from the Google cloud storage bucket of the user specified on the account page of Columbus</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the Google cloud storage bucket</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; path of the object in the bucket</li>
+<li><strong>out_file</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; path to store the downloaded file. If you don&#8217;t know the path, use /tmp</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+<li><strong>access</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; must be &#8216;storage&#8217;. Other values are for internal use</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.gee.get_bucket_metadata">
+<code class="descclassname">colorker.service.gee.</code><code class="descname">get_bucket_metadata</code><span class="sig-paren">(</span><em>bucket</em>, <em>user_settings=None</em>, <em>access='storage'</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.gee.get_bucket_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves metadata about the given bucket.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the Google cloud storage bucket</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+<li><strong>access</strong> &#8211; must be &#8216;storage&#8217;. Other values are for internal use only</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns the response obtained from the API by uploading the object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.gee.get_geojson">
+<code class="descclassname">colorker.service.gee.</code><code class="descname">get_geojson</code><span class="sig-paren">(</span><em>ftc</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.gee.get_geojson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the geojson representation of the ee.FeatureCollection.
+This function must be called from an EngineThread</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ftc</strong> &#8211; an instance of ee.FeatureCollection</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises Exception:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Any exception resulting from this operation</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.gee.list_bucket">
+<code class="descclassname">colorker.service.gee.</code><code class="descname">list_bucket</code><span class="sig-paren">(</span><em>bucket</em>, <em>user_settings=None</em>, <em>access='storage'</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.gee.list_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of metadata of the objects within the given bucket.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the Google cloud storage bucket</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, A dictionary of settings specifying credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+<li><strong>access</strong> &#8211; must be &#8216;storage&#8217;. Other values are for internal use only</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)">list</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of object paths</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="colorker.service.gee.upload_object">
+<code class="descclassname">colorker.service.gee.</code><code class="descname">upload_object</code><span class="sig-paren">(</span><em>bucket</em>, <em>filename</em>, <em>readers</em>, <em>owners</em>, <em>user_settings=None</em>, <em>access='storage_rw'</em><span class="sig-paren">)</span><a class="headerlink" href="#colorker.service.gee.upload_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads the specified file to the specified bucket. The object path in the bucket is same as the
+path of the file specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Name of the cloud storage bucket</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; fully qualified name of the file to upload</li>
+<li><strong>readers</strong> (<em>list(str)</em>) &#8211; list of email addresses</li>
+<li><strong>owners</strong> (<em>list(str)</em>) &#8211; list of email addresses</li>
+<li><strong>user_settings</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; optional, a dictionary of user credentials for appropriate services.
+If one is not provided, then this method must be invoked by an EngineThread
+which defines the settings</li>
+<li><strong>access</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; must be &#8216;storage&#8217;. Other values are for internal use only</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns the response obtained from the API by uploading the object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-colorker">colorker package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#module-colorker.security">colorker.security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#module-colorker.utils">colorker.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#document-colorker.service">colorker.service package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#module-colorker.service.bigquery">colorker.service.bigquery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#module-colorker.service.drive">colorker.service.drive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#module-colorker.service.email">colorker.service.email</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#module-colorker.service.fusiontables">colorker.service.fusiontables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#module-colorker.service.gee">colorker.service.gee</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html#document-index">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Johnson Kachikaran.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
